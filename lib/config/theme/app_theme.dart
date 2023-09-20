@@ -20,9 +20,10 @@ class AppTheme {
         assert(selectedColor < colorList.length,
             'Indice de color no se encuentra en el rango ${colorList.length - 1} ');
 
-  //Método para obtener el tema
+  //Método para obtener el tema y setear parametros iniciales
   ThemeData getTheme() => ThemeData(
         useMaterial3: true,
         colorSchemeSeed: colorList[selectedColor],
+        appBarTheme: const AppBarTheme(centerTitle: true),
       );
 }
