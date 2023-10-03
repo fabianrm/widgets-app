@@ -28,6 +28,9 @@ enum Transportation { car, plane, train, ship }
 class _UiControlsViewState extends State<_UiControlsView> {
   bool isDeveloper = true;
   Transportation selectedTransportation = Transportation.car;
+  bool wantsBreakfast = false;
+  bool wantsLunch = false;
+  bool wantsDinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +45,46 @@ class _UiControlsViewState extends State<_UiControlsView> {
             isDeveloper = !isDeveloper;
           }),
         ),
-        _customRadioListTile('By Car', 'Viajar por carro', Transportation.car),
-        _customRadioListTile(
-            'By Plane', 'Viajar por avión', Transportation.plane),
-        _customRadioListTile(
-            'By Train', 'Viajar por tren', Transportation.train),
-        RadioListTile(
-            title: const Text('By Ship'),
-            subtitle: const Text('Viajar por Barco'),
-            value: Transportation.ship,
-            groupValue: selectedTransportation,
-            onChanged: (value) => setState(() {
-                  selectedTransportation = Transportation.ship;
-                })),
+        ExpansionTile(
+          title: const Text('Vehiculos de transporte'),
+          subtitle: Text('$selectedTransportation'),
+          children: [
+            _customRadioListTile(
+                'By Car', 'Viajar por carro', Transportation.car),
+            _customRadioListTile(
+                'By Plane', 'Viajar por avión', Transportation.plane),
+            _customRadioListTile(
+                'By Train', 'Viajar por tren', Transportation.train),
+            RadioListTile(
+              title: const Text('By Ship'),
+              subtitle: const Text('Viajar por Barco'),
+              value: Transportation.ship,
+              groupValue: selectedTransportation,
+              onChanged: (value) => setState(() {
+                selectedTransportation = Transportation.ship;
+              }),
+            ),
+          ],
+        ),
+      
+      CheckboxListTile(
+        title: const Text('¿Quiere desayuno?'),
+        subtitle: const Text('El desayuno es americano'),
+        value: wantsBreakfast, onChanged: (value) => setState(() {
+        wantsBreakfast = !wantsBreakfast;
+      })),
+      CheckboxListTile(
+        title: const Text('¿Quiere almuerzo?'),
+        subtitle: const Text('Se ofrecen 3 tipos de almuerzo'),
+        value: wantsLunch, onChanged: (value) => setState(() {
+        wantsLunch = !wantsLunch;
+      })),
+      CheckboxListTile(
+        title: const Text('¿Quiere cena?'),
+        subtitle: const Text('La cena es pan con mantequilla y té'),
+        value: wantsDinner, onChanged: (value) => setState(() {
+        wantsDinner = !wantsDinner;
+      })),
       ],
     );
   }
