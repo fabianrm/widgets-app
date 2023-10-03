@@ -27,10 +27,38 @@ final slides = <SlideInfo>[
       imageUrl: 'assets/images/3.png'),
 ];
 
-class AppTutorial extends StatelessWidget {
+class AppTutorial extends StatefulWidget {
   static const name = 'tutorial_screen';
 
   const AppTutorial({Key? key}) : super(key: key);
+
+  @override
+  State<AppTutorial> createState() => _AppTutorialState();
+}
+
+class _AppTutorialState extends State<AppTutorial> {
+  final PageController pageviewController = PageController();
+  bool endReached = false;
+
+  @override
+  void initState() {
+    super.initState();
+    pageviewController.addListener(() {
+      final page = pageviewController.page ?? 0;
+
+      if (!endReached && page >= (slides.length - 1.5)) {
+        setState(() {
+          endReached = true;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    pageviewController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +67,7 @@ class AppTutorial extends StatelessWidget {
       body: Stack(
         children: [
           PageView(
+            controller: pageviewController,
             physics: const BouncingScrollPhysics(),
             children: slides
                 .map((e) => _Slide(
@@ -52,7 +81,17 @@ class AppTutorial extends StatelessWidget {
               child: const Text('Salir'),
               onPressed: () => context.pop(),
             ),
-          )
+          ),
+          endReached
+              ? Positioned(
+                  bottom: 30,
+                  right: 30,
+                  child: FilledButton(
+                    onPressed: () => context.pop(),
+                    child: const Text('Comenzar'),
+                  ),
+                )
+              : const SizedBox()
         ],
       ),
     );
