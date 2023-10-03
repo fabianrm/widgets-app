@@ -10,7 +10,7 @@ class UiControlsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('UI Controls'),
       ),
-      body: _UiControlsView(),
+      body: const _UiControlsView(),
     );
   }
 }
@@ -31,6 +31,7 @@ class _UiControlsViewState extends State<_UiControlsView> {
   bool wantsBreakfast = false;
   bool wantsLunch = false;
   bool wantsDinner = false;
+  bool wantsPostre = false;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +85,12 @@ class _UiControlsViewState extends State<_UiControlsView> {
         subtitle: const Text('La cena es pan con mantequilla y té'),
         value: wantsDinner, onChanged: (value) => setState(() {
         wantsDinner = !wantsDinner;
+      })),
+      CheckboxListTile(
+        title: const Text('¿Quiere postre?'),
+        subtitle: const Text('El postre es manjar con fresa'),
+        value: wantsPostre, onChanged: (value) => setState(() {
+        wantsPostre = !wantsPostre;
       })),
       ],
     );
