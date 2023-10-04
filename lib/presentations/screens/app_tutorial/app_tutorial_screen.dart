@@ -51,6 +51,7 @@ class _AppTutorialState extends State<AppTutorial> {
         setState(() {
           endReached = true;
         });
+        //endReached = false;
       }
     });
   }
@@ -79,7 +80,7 @@ class _AppTutorialState extends State<AppTutorial> {
             right: 20,
             top: 50,
             child: TextButton(
-              child: const Text('Salir'),
+              child: const Text('Saltar'),
               onPressed: () => context.pop(),
             ),
           ),
